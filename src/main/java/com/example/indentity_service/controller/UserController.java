@@ -1,10 +1,12 @@
 package com.example.indentity_service.controller;
 
 
+import com.example.indentity_service.dto.dtorequest.ApiResponse;
 import com.example.indentity_service.dto.dtorequest.UserCreationRequest;
 import com.example.indentity_service.dto.dtorequest.UserUpdateRequest;
 import com.example.indentity_service.entity.User;
 import com.example.indentity_service.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody UserCreationRequest request){
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+
+        apiResponse.setResult(userService.createUser(request));
+        return apiResponse;
     }
     @GetMapping
     List<User> getUser(){

@@ -1,9 +1,23 @@
 package com.example.indentity_service.dto.dtorequest;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UserCreationRequest {
+    @NotBlank(message = "USERNAME_INVALID")
+    @Size(min = 3, max = 20,
+            message = "USERNAME_INVALID")
+    @Pattern(
+            regexp = "^[A-Za-z][A-Za-z0-9_]{2,19}$",
+            message = "USERNAME_INVALID"
+    )
     private String username;
+
+    @Size(min = 8, message = "INVALID_PASSWORD")
     private String password;
     private String firstname;
     private String lastname;
